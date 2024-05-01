@@ -1,3 +1,6 @@
+from datetime import timedelta
+UPDATE_INTERVAL = timedelta(seconds=600)
+
 # Telemetry Commands Packs 00-15
 TELEMETRY_COMMANDS = {
     0: "~20004642E00200FD37\r",

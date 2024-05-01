@@ -9,6 +9,8 @@ from .const import (
     ALARM_ATTRIBUTES,
     ALARM_MAPPINGS,
     SYSTEM_ATTRIBUTES,
+    SETTINGS_ATTRIBUTES,
+    UPDATE_INTERVAL,
 )
 from .calc_functions import (
     battery_watts,
@@ -93,7 +95,7 @@ async def generate_sensors(hass, bms_type, port, config_battery_address, sensor_
         _LOGGER,
         name="seplos_bms_sensor",
         update_method=async_update_data,
-        update_interval=timedelta(seconds=5),  # Define how often to fetch data
+        update_interval=UPDATE_INTERVAL,  # Define how often to fetch data
     )
     _LOGGER.debug("async_refresh data generate_sensors called")
     await coordinator.async_refresh()
