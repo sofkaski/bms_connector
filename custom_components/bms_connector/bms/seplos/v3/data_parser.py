@@ -192,13 +192,13 @@ def extract_data_from_message(msg, telemetry_requested=True, teledata_requested=
     address_string1 = None
     address_string2 = None
     address_string3 = None
-    
+
     # WHOLE SECTION NEEDS WORK
 
     for response in msg:
         if response.startswith("~"):
-            response = response[1:] 
-        
+            response = response[1:]
+
         _LOGGER.debug("Data Response: %s", response)
         if response == msg[0]:
             pia_data = decode_pia_table(response)

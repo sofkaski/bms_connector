@@ -1,26 +1,12 @@
-from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from ....connector.local_serial.seplos_v3_local_serial import send_serial_command
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.entity import async_generate_entity_id
-from homeassistant.helpers.entity_component import EntityComponent
 
 from .data_parser import extract_data_from_message
-import asyncio
 import logging
 from datetime import timedelta
-from ....const import (
-    NAME,
-    DOMAIN,
-    VERSION,
-    ATTRIBUTION,
-)
 from .const import (
-    ALARM_ATTRIBUTES,
     ALARM_MAPPINGS,
-    SYSTEM_ATTRIBUTES,
-    SETTINGS_ATTRIBUTES,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -40,7 +26,7 @@ async def generate_sensors(hass, bms_type, port, config_battery_address, sensor_
                 _LOGGER.debug("Derived sensor '%s' calculated value: %s", self._name, result)
                 return result
             return super().state
-            
+
 
 
     async def async_update_data():
@@ -67,7 +53,7 @@ async def generate_sensors(hass, bms_type, port, config_battery_address, sensor_
         update_interval=timedelta(seconds=5),  # Define how often to fetch data
     )
     _LOGGER.debug("async_refresh data generate_sensors called")
-    await coordinator.async_refresh() 
+    await coordinator.async_refresh()
 
     pia_sensors = [
         SeplosBMSSensorBase(coordinator, port, "pack_voltage", "Pack Voltage", "V", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
@@ -106,7 +92,7 @@ async def generate_sensors(hass, bms_type, port, config_battery_address, sensor_
         # Add other sensors for PIB as needed
     ]
     # Combine all sensor lists
-    sensors = pia_sensors + pib_sensors 
+    sensors = pia_sensors + pib_sensors
 
     async_add_entities(sensors, True)
 
@@ -120,7 +106,7 @@ class SeplosBMSSensorBase(CoordinatorEntity):
         # For other alarm events, interpret them as bit flags
         triggered_alarms = [flag for idx, flag in enumerate(flags) if value is not None and value & (1 << idx)]
         return ', '.join(triggered_alarms) if triggered_alarms else "No Alarm"
-   
+
     def __init__(self, coordinator, port, attribute, name, unit=None, icon=None, battery_address=None, sensor_prefix=None):
         """Initialize the sensor."""
         super().__init__(coordinator)
@@ -138,7 +124,7 @@ class SeplosBMSSensorBase(CoordinatorEntity):
         """Return the name of the sensor."""
         prefix = f"{self._sensor_prefix} - {self._battery_address} -"
         return f"{prefix} {self._name}"
-        
+
     @property
     def unique_id(self):
         """Return a unique ID for this entity."""
@@ -167,7 +153,7 @@ class SeplosBMSSensorBase(CoordinatorEntity):
             else:
                 _LOGGER.warning("No data found in telemetry or alarms for %s", self._name)
                 return None
-                
+
 
 
         _LOGGER.debug("Sensor state for %s: %s", self._name, value)
