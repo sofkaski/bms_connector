@@ -368,25 +368,25 @@ def decode_fourseven(hex_string):
         (int.from_bytes(datai_bytes[98:100], byteorder='big')  - 2731) / 10.0,
 
         # Charging overcurrent warning
-        int.from_bytes(datai_bytes[100:102], byteorder='big') / 10.0,
+        int.from_bytes(datai_bytes[100:102], byteorder='big') / 100.0,
 
         # Charging overcurrent recovery
-        int.from_bytes(datai_bytes[102:104], byteorder='big') / 10.0,
+        int.from_bytes(datai_bytes[102:104], byteorder='big') / 100.0,
 
         # Discharge overcurrent warning
-        int.from_bytes(datai_bytes[104:106], byteorder='big') / 10.0,
+        int.from_bytes(datai_bytes[104:106], byteorder='big') / 100.0,
 
         # Discharge overcurrent recovery
-        int.from_bytes(datai_bytes[106:108], byteorder='big') / 10.0,
+        int.from_bytes(datai_bytes[106:108], byteorder='big') / 100.0,
 
         # Charge overcurrent protection
-        int.from_bytes(datai_bytes[108:110], byteorder='big') / 10.0,
+        int.from_bytes(datai_bytes[108:110], byteorder='big') / 100.0,
 
         # Discharge overcurrent protection
-        int.from_bytes(datai_bytes[110:112], byteorder='big') / 10.0,
+        int.from_bytes(datai_bytes[110:112], byteorder='big') / 100.0,
 
         # Transient overcurrent protection
-        int.from_bytes(datai_bytes[112:114], byteorder='big') / 10.0,
+        int.from_bytes(datai_bytes[112:114], byteorder='big') / 100.0,
 
 
         # Output soft start delay
