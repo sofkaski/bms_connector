@@ -282,9 +282,11 @@ class SeplosBMSSensorBase(CoordinatorEntity):
         if not flags:
             return f"Unknown event: {event}"
 
-        # For other alarm events, interpret them as bit flags
-        triggered_alarms = [flag for idx, flag in enumerate(flags) if value is not None and value & (1 << idx)]
-        #return ', '.join(str(triggered_alarms)) if triggered_alarms else "No Alarm"
+        # Interpret alarm events where alarms are encoded as byte values
+        if event in ['cellAlarm', 'tempAlarm', 'currentAlarm', 'voltageAlarm' ]:
+          triggered_alarms=[ALARM_MAPPINGS.get(event, []).get(value, 'Unknown Alarm') if value is not None else "No Alarm"]
+        else: # other alarm events have alarms encoded as bits in the value
+          triggered_alarms = [flag for idx, flag in enumerate(flags) if value is not None and value & (1 << idx)]
 
         return ', '.join(str(alarm) for alarm in triggered_alarms) if triggered_alarms else "No Alarm"
 
@@ -329,7 +331,7 @@ class SeplosBMSSensorBase(CoordinatorEntity):
         # Interpret the value for alarm sensors
         if base_attribute in ALARM_ATTRIBUTES:
             interpreted_value = str(self.interpret_alarm(base_attribute, value))
-            _LOGGER.debug("Interpreted value for %s: %s", base_attribute, interpreted_value)
+            _LOGGER.debug("Interpreted value for %s %s: %s", base_attribute, value, interpreted_value)
             return interpreted_value
         if value is None or value == '':
             if base_attribute == 'current':

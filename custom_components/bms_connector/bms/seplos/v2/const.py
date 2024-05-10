@@ -155,17 +155,23 @@ ALARM_MAPPINGS = {
     ],
     "cellAlarm": {
         0: "No Alarm",
-        1: "Alarm"
+        1: "Low Cell Voltage Alarm",
+        2: "High Cell Voltage Alarm",
     },
     "tempAlarm": {
         0: "No Alarm",
-        1: "Alarm"
+        1: "Low Cell Temperature Alarm",
+        2: "High Cell Temperature Alarm",
     },
     "currentAlarm": {
-        1: "Charge/Discharge Current Alarm"
+        0: "No Alarm",
+        1: "Low Charge/Discharge Current Alarm",
+        2: "High Charge/Discharge Current Alarm",
     },
     "voltageAlarm": {
-        1: "Total Battery Voltage Alarm"
+        0: "No Alarm",
+        1: "Low Total Voltage Alarm",
+        2: "High Total Voltage Alarm",
     },
     "onOffState": [
         "Discharge switch state",
