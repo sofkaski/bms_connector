@@ -74,7 +74,7 @@ def lowest_cell_voltage(data):
     return get_cell_extremes_and_difference(data)[1]
 
 def cell_voltage_difference(data):
-    return get_cell_extremes_and_difference(data)[2]
+    return get_cell_extremes_and_difference(data)[2] * 1000.0
 
 def highest_cell_number(data):
     return get_cell_extremes_and_difference(data)[3]

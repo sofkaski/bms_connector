@@ -101,7 +101,7 @@ async def generate_sensors(hass, bms_type, port, config_battery_address, sensor_
     await coordinator.async_refresh()
 
     all_sensors = (
-        [SeplosBMSSensorBase(coordinator, port, f"cellVoltage[{idx}]", f"Cell Voltage {idx+1}", "mV", battery_address=battery_address, sensor_prefix=sensor_prefix) for idx in range(16)] +
+        [SeplosBMSSensorBase(coordinator, port, f"cellVoltage[{idx}]", f"Cell Voltage {idx+1}", "V", battery_address=battery_address, sensor_prefix=sensor_prefix) for idx in range(16)] +
         [SeplosBMSSensorBase(coordinator, port, f"temperatures[{idx}]", f"Cell Temperature {idx+1}", "°C", battery_address=battery_address, sensor_prefix=sensor_prefix) for idx in range(4)] +
         [SeplosBMSSensorBase(coordinator, port, f"cellAlarm[{idx}]", f"Cell Alarm {idx+1}", unit=None, battery_address=battery_address, sensor_prefix=sensor_prefix) for idx in range(16)] +
         [SeplosBMSSensorBase(coordinator, port, f"tempAlarm[{idx}]", f"Temperature Alarm {idx+1}", unit=None, battery_address=battery_address, sensor_prefix=sensor_prefix) for idx in range(4)] +
@@ -143,17 +143,17 @@ async def generate_sensors(hass, bms_type, port, config_battery_address, sensor_
     )
     setting_sensors = [
         SeplosBMSSensorBase(coordinator, port, "soc_ah", "SOC", "Ah", "mdi:gauge", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "monomer_high_voltage_alarm", "Monomer High Voltage Alarm", "mV", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
+        SeplosBMSSensorBase(coordinator, port, "monomer_high_voltage_alarm", "Monomer High Voltage Alarm", "V", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "overcurrent_delay_recovery", "Overcurrent Delay Recovery", "s", "mdi:timer-sand", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "equalization_opening_voltage", "Equalization Opening Voltage", "mV", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "monomer_undervoltage_recovery", "Monomer Undervoltage Recovery", "mV", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "monomer_low_pressure_recovery", "Monomer Low Pressure Recovery", "mV", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "monomer_overvoltage_protection", "Monomer Overvoltage Protection", "mV", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "monomer_overvoltage_recovery", "Monomer Overvoltage Recovery", "mV", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "monomer_undervoltage_protection", "Monomer Undervoltage Protection", "mV", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "monomer_low_pressure_alarm", "Monomer Low Pressure Alarm", "mV", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "monomer_high_pressure_recovery", "Monomer High Pressure Recovery", "mV", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "battery_low_voltage_forbidden_charging", "Battery Low Voltage Forbidden Charging", "mV", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
+        SeplosBMSSensorBase(coordinator, port, "equalization_opening_voltage", "Equalization Opening Voltage", "V", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
+        SeplosBMSSensorBase(coordinator, port, "monomer_undervoltage_recovery", "Monomer Undervoltage Recovery", "V", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
+        SeplosBMSSensorBase(coordinator, port, "monomer_low_pressure_recovery", "Monomer Low Pressure Recovery", "V", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
+        SeplosBMSSensorBase(coordinator, port, "monomer_overvoltage_protection", "Monomer Overvoltage Protection", "V", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
+        SeplosBMSSensorBase(coordinator, port, "monomer_overvoltage_recovery", "Monomer Overvoltage Recovery", "V", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
+        SeplosBMSSensorBase(coordinator, port, "monomer_undervoltage_protection", "Monomer Undervoltage Protection", "V", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
+        SeplosBMSSensorBase(coordinator, port, "monomer_low_pressure_alarm", "Monomer Low Pressure Alarm", "V", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
+        SeplosBMSSensorBase(coordinator, port, "monomer_high_pressure_recovery", "Monomer High Pressure Recovery", "V", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
+        SeplosBMSSensorBase(coordinator, port, "battery_low_voltage_forbidden_charging", "Battery Low Voltage Forbidden Charging", "V", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "total_pressure_high_pressure_alarm", "Total Pressure High Pressure Alarm", "V", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "total_pressure_high_pressure_recovery", "Total Pressure High Pressure Recovery", "V", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "total_pressure_low_pressure_alarm", "Total Pressure Low Pressure Alarm", "V", "mdi:flash-circle", battery_address=battery_address, sensor_prefix=sensor_prefix),
@@ -247,8 +247,8 @@ async def generate_sensors(hass, bms_type, port, config_battery_address, sensor_
         DerivedSeplosBMSSensor(coordinator, port, None, "Capacity - Watts", "W", calc_function=capacity_watts, battery_address=battery_address, sensor_prefix=sensor_prefix),
         DerivedSeplosBMSSensor(coordinator, port, None, "Full Charge - Amps", "Ah", calc_function=full_charge_amps, battery_address=battery_address, sensor_prefix=sensor_prefix),
         DerivedSeplosBMSSensor(coordinator, port, None, "Full Charge - Watts", "W", calc_function=full_charge_watts, battery_address=battery_address, sensor_prefix=sensor_prefix),
-        DerivedSeplosBMSSensor(coordinator, port, None, "Highest Cell Voltage", "mV", calc_function=highest_cell_voltage, battery_address=battery_address, sensor_prefix=sensor_prefix),
-        DerivedSeplosBMSSensor(coordinator, port, None, "Lowest Cell Voltage", "mV", calc_function=lowest_cell_voltage, battery_address=battery_address, sensor_prefix=sensor_prefix),
+        DerivedSeplosBMSSensor(coordinator, port, None, "Highest Cell Voltage", "V", calc_function=highest_cell_voltage, battery_address=battery_address, sensor_prefix=sensor_prefix),
+        DerivedSeplosBMSSensor(coordinator, port, None, "Lowest Cell Voltage", "V", calc_function=lowest_cell_voltage, battery_address=battery_address, sensor_prefix=sensor_prefix),
         DerivedSeplosBMSSensor(coordinator, port, None, "Cell Voltage Difference", "mV", calc_function=cell_voltage_difference, battery_address=battery_address, sensor_prefix=sensor_prefix),
         DerivedSeplosBMSSensor(coordinator, port, None, "Cell Number of Highest Voltage", "", calc_function=highest_cell_number, battery_address=battery_address, sensor_prefix=sensor_prefix),
         DerivedSeplosBMSSensor(coordinator, port, None, "Cell Number of Lowest Voltage", "", calc_function=lowest_cell_number, battery_address=battery_address, sensor_prefix=sensor_prefix),
