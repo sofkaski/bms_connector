@@ -191,23 +191,8 @@ def decode_fourseven(hex_string):
     if len(hex_string) < 10:
         return None, None, None
 
-    # The following fields are not used, but left here for documentary or debug output purposes
-    soi = hex_string[0]  # noqa: F841
-    ver = hex_string[1]  # noqa: F841
-    adr = hex_string[2]  # noqa: F841
-    infoflag = hex_string[3]  # noqa: F841
-
-    # Extract length correctly
-    length = int.from_bytes(hex_string[4:6], byteorder='big')
-
-    # Extract datai correctly as bytes
     datai_start = 2
-    datai_end = datai_start + length
-    datai_bytes = hex_string[datai_start:datai_end]
-
-    # The following fields are not used, but left here for documentary or debug output purposes
-    chksum = hex_string[-4:-2]  # noqa: F841
-    eoi = hex_string[-2]  # noqa: F841
+    datai_bytes = hex_string[datai_start:]
 
     datai_values = [
         # Monomer high voltage alarm: 3.550 V
