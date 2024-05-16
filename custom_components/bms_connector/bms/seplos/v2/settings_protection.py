@@ -209,13 +209,6 @@ def decode_fourseven(hex_string):
     chksum = hex_string[-4:-2]  # noqa: F841
     eoi = hex_string[-2]  # noqa: F841
 
-
-    # Convert DATAI to human-readable format
-    datai_values = [
-        int.from_bytes(datai_bytes[i:i+2], byteorder='big')
-        for i in range(0, len(datai_bytes), 2)
-    ]
-
     datai_values = [
         # Monomer high voltage alarm: 3.550 V
         int.from_bytes(datai_bytes[0:2], byteorder='big') / 1000.0,
