@@ -186,12 +186,6 @@ async def generate_sensors(hass, bms_type, port, config_battery_address, sensor_
         SeplosBMSSensorBase(coordinator, port, "ambient_high_temperature_recovery", "Ambient High Temperature Recovery", "°C", "mdi:thermometer", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "ambient_low_temperature_alarm", "Ambient Low Temperature Alarm", "°C", "mdi:thermometer-alert", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "ambient_low_temperature_recovery", "Ambient Low Temperature Recovery", "°C", "mdi:thermometer", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "fan_fault", "Fan Fault", "When", "mdi:fan", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "fan_fault_recovery", "Fan Fault Recovery", "When", "mdi:fan", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "can_communication_fault", "CAN Communication Fault", "When", "mdi:network", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "can_communication_fault_recovery", "CAN Communication Fault Recovery", "When", "mdi:network", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "mos_short_circuit_protection", "MOS Short Circuit Protection", "When", "mdi:flash-alert", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "mos_short_circuit_protection_recovery", "MOS Short Circuit Protection Recovery", "When", "mdi:flash", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "power_high_temperature_recovery", "Power High Temperature Recovery", "°C", "mdi:thermometer", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "power_over_temperature_protection", "Power Over Temperature Protection", "°C", "mdi:thermometer-alert", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "power_over_temperature_recovery", "Power Over Temperature Recovery", "°C", "mdi:thermometer", battery_address=battery_address, sensor_prefix=sensor_prefix),
@@ -230,13 +224,6 @@ async def generate_sensors(hass, bms_type, port, config_battery_address, sensor_
         SeplosBMSSensorBase(coordinator, port, "compensation_point_1_impedance", "Compensation Point 1 Impedance", "mΩ", "mdi:flash-alert", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "compensation_point_2_position", "Compensation Point 2 Position", "String", "mdi:flash", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "compensation_point_2_impedance", "Compensation Point 2 Impedance", "mΩ", "mdi:flash-alert", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "compensation_point_3_position", "Compensation Point 3 Position", "String", "mdi:flash", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "compensation_point_3_impedance", "Compensation Point 3 Impedance", "mΩ", "mdi:flash-alert", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "compensation_point_4_position", "Compensation Point 4 Position", "String", "mdi:flash", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "compensation_point_4_impedance", "Compensation Point 4 Impedance", "mΩ", "mdi:flash-alert", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "working_status", "Working Status", "When", "mdi:flash", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "status_information", "Status Information", "When", "mdi:flash", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "equipment_version", "Equipment Version", "Version", "mdi:information-outline", battery_address=battery_address, sensor_prefix=sensor_prefix),
     ]
 
 
