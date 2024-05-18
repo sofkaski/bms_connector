@@ -207,7 +207,7 @@ async def generate_sensors(hass, bms_type, port, config_battery_address, sensor_
         SeplosBMSSensorBase(coordinator, port, "charge_overcurrent_delay", "Charge Overcurrent Delay", "S", "mdi:timer-sand", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "discharge_overcurrent_delay", "Discharge Overcurrent Delay", "S", "mdi:timer-sand", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "transient_overcurrent_delay", "Transient Overcurrent Delay", "ms", "mdi:timer", battery_address=battery_address, sensor_prefix=sensor_prefix),
-        SeplosBMSSensorBase(coordinator, port, "overcurrent_delay_recovery_times", "Overcurrent Delay Recovery Times", "times", "mdi:timer-sand", battery_address=battery_address, sensor_prefix=sensor_prefix),
+        SeplosBMSSensorBase(coordinator, port, "overcurrent_recovery_times", "Overcurrent Recovery Times", "times", "mdi:timer-sand", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "charge_current_limit_delay", "Charge Current Limit Delay", "Minutes", "mdi:timer-sand", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "charge_activation_delay", "Charge Activation Delay", "Minutes", "mdi:timer-sand", battery_address=battery_address, sensor_prefix=sensor_prefix),
         SeplosBMSSensorBase(coordinator, port, "charging_activation_interval", "Charging Activation Interval", "When", "mdi:timer", battery_address=battery_address, sensor_prefix=sensor_prefix),
