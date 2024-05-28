@@ -103,24 +103,24 @@ async def generate_sensors(hass, bms_type, port, config_battery_address, sensor_
     await coordinator.async_refresh()
 
     all_sensors = (
-        [SeplosBMSSensorBase(coordinator, port, f"cellVoltage[{idx}]", f"Cell Voltage {idx+1}", "V", battery_address=battery_address, sensor_prefix=sensor_prefix) for idx in range(16)] +
-        [SeplosBMSSensorBase(coordinator, port, f"temperatures[{idx}]", f"Cell Temperature {idx+1}", "°C", battery_address=battery_address, sensor_prefix=sensor_prefix) for idx in range(4)] +
+        [SeplosBMSSensorBase(coordinator, port, f"cellVoltage[{idx}]", f"Cell Voltage {idx+1}", "V", battery_address=battery_address, sensor_prefix=sensor_prefix, device_class=SensorDeviceClass.VOLTAGE, state_class=SensorStateClass.MEASUREMENT) for idx in range(16)] +
+        [SeplosBMSSensorBase(coordinator, port, f"temperatures[{idx}]", f"Cell Temperature {idx+1}", "°C", battery_address=battery_address, sensor_prefix=sensor_prefix, device_class=SensorDeviceClass.TEMPERATURE, state_class=SensorStateClass.MEASUREMENT) for idx in range(4)] +
         [SeplosBMSSensorBase(coordinator, port, f"cellAlarm[{idx}]", f"Cell Alarm {idx+1}", unit=None, battery_address=battery_address, sensor_prefix=sensor_prefix) for idx in range(16)] +
         [SeplosBMSSensorBase(coordinator, port, f"tempAlarm[{idx}]", f"Temperature Alarm {idx+1}", unit=None, battery_address=battery_address, sensor_prefix=sensor_prefix) for idx in range(4)] +
         [
-            SeplosBMSSensorBase(coordinator, port, "temperatures[4]", "Environment Temperature", "°C", battery_address=battery_address, sensor_prefix=sensor_prefix),
-            SeplosBMSSensorBase(coordinator, port, "temperatures[5]", "Power Temperature", "°C", battery_address=battery_address, sensor_prefix=sensor_prefix),
-            SeplosBMSSensorBase(coordinator, port, "current", "Current", "A", battery_address=battery_address, sensor_prefix=sensor_prefix),
-            SeplosBMSSensorBase(coordinator, port, "voltage", "Voltage", "V", battery_address=battery_address, sensor_prefix=sensor_prefix),
+            SeplosBMSSensorBase(coordinator, port, "temperatures[4]", "Environment Temperature", "°C", battery_address=battery_address, sensor_prefix=sensor_prefix, device_class=SensorDeviceClass.TEMPERATURE, state_class=SensorStateClass.MEASUREMENT),
+            SeplosBMSSensorBase(coordinator, port, "temperatures[5]", "Power Temperature", "°C", battery_address=battery_address, sensor_prefix=sensor_prefix, device_class=SensorDeviceClass.TEMPERATURE, state_class=SensorStateClass.MEASUREMENT),
+            SeplosBMSSensorBase(coordinator, port, "current", "Current", "A", battery_address=battery_address, sensor_prefix=sensor_prefix, device_class=SensorDeviceClass.CURRENT, state_class=SensorStateClass.MEASUREMENT),
+            SeplosBMSSensorBase(coordinator, port, "voltage", "Voltage", "V", battery_address=battery_address, sensor_prefix=sensor_prefix, device_class=SensorDeviceClass.VOLTAGE, state_class=SensorStateClass.MEASUREMENT),
             SeplosBMSSensorBase(coordinator, port, "cellsCount", "Cell Count", "", battery_address=battery_address, sensor_prefix=sensor_prefix),
             SeplosBMSSensorBase(coordinator, port, "tempCount", "Temperature Count", "", battery_address=battery_address, sensor_prefix=sensor_prefix),
             SeplosBMSSensorBase(coordinator, port, "resCap", "Residual Capacity", "Ah", battery_address=battery_address, sensor_prefix=sensor_prefix),
             SeplosBMSSensorBase(coordinator, port, "capacity", "Capacity", "Ah", battery_address=battery_address, sensor_prefix=sensor_prefix),
-            SeplosBMSSensorBase(coordinator, port, "soc", "State of Charge", "%", battery_address=battery_address, sensor_prefix=sensor_prefix),
+            SeplosBMSSensorBase(coordinator, port, "soc", "State of Charge", "%", battery_address=battery_address, sensor_prefix=sensor_prefix, device_class=SensorDeviceClass.BATTERY, state_class=SensorStateClass.MEASUREMENT),
             SeplosBMSSensorBase(coordinator, port, "ratedCapacity", "Rated Capacity", "Ah", battery_address=battery_address, sensor_prefix=sensor_prefix),
             SeplosBMSSensorBase(coordinator, port, "cycles", "Cycles", "", battery_address=battery_address, sensor_prefix=sensor_prefix),
             SeplosBMSSensorBase(coordinator, port, "soh", "State of Health", "%", battery_address=battery_address, sensor_prefix=sensor_prefix),
-            SeplosBMSSensorBase(coordinator, port, "portVoltage", "Port Voltage", "V", battery_address=battery_address, sensor_prefix=sensor_prefix),
+            SeplosBMSSensorBase(coordinator, port, "portVoltage", "Port Voltage", "V", battery_address=battery_address, sensor_prefix=sensor_prefix, device_class=SensorDeviceClass.VOLTAGE, state_class=SensorStateClass.MEASUREMENT),
             SeplosBMSSensorBase(coordinator, port, "currentAlarm", "Current Alarm", "", battery_address=battery_address, sensor_prefix=sensor_prefix),
             SeplosBMSSensorBase(coordinator, port, "voltageAlarm", "Voltage Alarm", "", battery_address=battery_address, sensor_prefix=sensor_prefix),
             SeplosBMSSensorBase(coordinator, port, "alarmEvent0", "Alarm Event 0", "", battery_address=battery_address, sensor_prefix=sensor_prefix),
@@ -236,9 +236,9 @@ async def generate_sensors(hass, bms_type, port, config_battery_address, sensor_
         DerivedSeplosBMSSensor(coordinator, port, None, "Capacity - Watts", "W", calc_function=capacity_watts, battery_address=battery_address, sensor_prefix=sensor_prefix),
         DerivedSeplosBMSSensor(coordinator, port, None, "Full Charge - Amps", "Ah", calc_function=full_charge_amps, battery_address=battery_address, sensor_prefix=sensor_prefix),
         DerivedSeplosBMSSensor(coordinator, port, None, "Full Charge - Watts", "W", calc_function=full_charge_watts, battery_address=battery_address, sensor_prefix=sensor_prefix),
-        DerivedSeplosBMSSensor(coordinator, port, None, "Highest Cell Voltage", "V", calc_function=highest_cell_voltage, battery_address=battery_address, sensor_prefix=sensor_prefix),
-        DerivedSeplosBMSSensor(coordinator, port, None, "Lowest Cell Voltage", "V", calc_function=lowest_cell_voltage, battery_address=battery_address, sensor_prefix=sensor_prefix),
-        DerivedSeplosBMSSensor(coordinator, port, None, "Cell Voltage Difference", "mV", calc_function=cell_voltage_difference, battery_address=battery_address, sensor_prefix=sensor_prefix),
+        DerivedSeplosBMSSensor(coordinator, port, None, "Highest Cell Voltage", "V", calc_function=highest_cell_voltage, battery_address=battery_address, sensor_prefix=sensor_prefix, device_class=SensorDeviceClass.VOLTAGE, state_class=SensorStateClass.MEASUREMENT),
+        DerivedSeplosBMSSensor(coordinator, port, None, "Lowest Cell Voltage", "V", calc_function=lowest_cell_voltage, battery_address=battery_address, sensor_prefix=sensor_prefix, device_class=SensorDeviceClass.VOLTAGE, state_class=SensorStateClass.MEASUREMENT),
+        DerivedSeplosBMSSensor(coordinator, port, None, "Cell Voltage Difference", "mV", calc_function=cell_voltage_difference, battery_address=battery_address, sensor_prefix=sensor_prefix, device_class=SensorDeviceClass.VOLTAGE, state_class=SensorStateClass.MEASUREMENT),
         DerivedSeplosBMSSensor(coordinator, port, None, "Cell Number of Highest Voltage", "", calc_function=highest_cell_number, battery_address=battery_address, sensor_prefix=sensor_prefix),
         DerivedSeplosBMSSensor(coordinator, port, None, "Cell Number of Lowest Voltage", "", calc_function=lowest_cell_number, battery_address=battery_address, sensor_prefix=sensor_prefix),
         DerivedSeplosBMSSensor(coordinator, port, None, "Balancer Active Cell 1", "", calc_function=balancer_cell_1, battery_address=battery_address, sensor_prefix=sensor_prefix),
