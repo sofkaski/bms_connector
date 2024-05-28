@@ -1,5 +1,7 @@
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from homeassistant.components.sensor import SensorDeviceClass
+from homeassistant.components.sensor import SensorStateClass
 from ....connector.local_serial.local_serial import send_serial_command
 
 from .data_parser import extract_data_from_message
@@ -277,7 +279,7 @@ class SeplosBMSSensorBase(CoordinatorEntity):
 
         return ', '.join(str(alarm) for alarm in triggered_alarms) if triggered_alarms else "No Alarm"
 
-    def __init__(self, coordinator, port, attribute, name, unit=None, icon=None, battery_address=None, sensor_prefix=None):
+    def __init__(self, coordinator, port, attribute, name, unit=None, icon=None, battery_address=None, sensor_prefix=None, device_class=None, state_class=None):
         """Initialize the sensor."""
         super().__init__(coordinator)
         self._port = port
@@ -287,6 +289,8 @@ class SeplosBMSSensorBase(CoordinatorEntity):
         self._icon = icon
         self._battery_address = battery_address
         self._sensor_prefix = sensor_prefix
+        self._device_class = device_class
+        self._state_class = state_class
 
     @property
     def name(self):
@@ -342,6 +346,20 @@ class SeplosBMSSensorBase(CoordinatorEntity):
         if self._attribute in SYSTEM_ATTRIBUTES:
             return None  # No unit for alarms
         return self._unit
+
+    @property
+    def device_class(self):
+        """Return the device class."""
+        return self._device_class
+
+    @property
+    def extra_state_attributes(self):
+        if self._state_class:
+            return  {
+                'state_class': self._state_class
+            }
+        else:
+            return None
 
     def get_value(self, telemetry_data):
         """Retrieve the value based on the attribute."""
