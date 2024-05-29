@@ -1,5 +1,5 @@
 from datetime import timedelta
-UPDATE_INTERVAL = timedelta(seconds=600)
+UPDATE_INTERVAL = timedelta(seconds=60)
 
 # Telemetry Commands Packs 00-15
 TELEMETRY_COMMANDS = {
